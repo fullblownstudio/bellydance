@@ -286,17 +286,10 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function($){	
-
-
-/*	localStorage.uid = 0;
-	localStorage.uname = '';
-	localStorage.email = '';
-	localStorage.photo = '';
-	localStorage.optin = '';*/
 	
 	// check local db for uid 
 	var uid = localStorage.uid;
-	
+
 	if(typeof uid != 'undefined'){
 		//alert('1. local ' + uid);
 		$('#uid').val(uid);
@@ -324,7 +317,6 @@ jQuery(document).ready(function($){
 			
 		} else {
 			
-			
 			//alert('4. no ' + uid);
 			
 			$( '#uploader' ).show();
@@ -339,9 +331,8 @@ jQuery(document).ready(function($){
 			
 		}
 
-		
-		//getacct(uid);
 	} else {
+		
 		localStorage.uid = 0;
 		localStorage.uname = '';
 		localStorage.email = '';
@@ -366,10 +357,9 @@ jQuery(document).ready(function($){
 		// Retrieve
 		var uname = localStorage.uname;
 		$('.uname').text(uname);
-		
-		
+				
 		pauseAll();
-		//$('#'+page).show();
+
 	});		
 	
 	// LOGIN START BUTTON CLICK - SAVE ACCOUNT
@@ -395,9 +385,9 @@ jQuery(document).ready(function($){
 				$('#uid').val(data);
 				getacct();
 
-			},
+/*			},
 			error: function (xhr, textStatus, errorThrown){
-			  alert(errorThrown);
+			  alert(errorThrown);*/
 			}
 
 		});
@@ -408,11 +398,10 @@ jQuery(document).ready(function($){
 			$('.box').hide();
 
 			$( '#'+page ).fadeIn( "slow", function() {
-				// Animation complete
+
 			});
 			
 			pauseAll();
-			//$('#'+page).show();
 			
 			$('.footerbut').addClass('mynav');
 			
@@ -480,12 +469,11 @@ jQuery(document).ready(function($){
 					$( '#photoname').val('');
 					
 				}
+ 
 
-				//$("#email").val('Subscribed!').prop('disabled', true); 
-
-			},
+/*			},
 			error: function (xhr, textStatus, errorThrown){
-			  alert(errorThrown);
+			  alert(errorThrown);*/
 			}
 
 		});
@@ -495,36 +483,7 @@ jQuery(document).ready(function($){
 	
 	
 	/* UPLOAD PHOTO */
-	$('#myphoto').change(function(){
-		
-/*		
-		var uname = $('#uname').val();
-		var email = $('#email').val();
-		
-		$.ajax({
-			url: "https://www.salimpourschoolonline.com/functions.cfc",
-			type: "post",
-			dataType: "json",
-			data: {method: "saveappacct", uname: (uname), email: (email)},
-			success: function (data){
-				
-				//$("#signupsaved").html(data).show('fast');
-				// Store local
-				var uid = data;
-				alert('1 ' + uid);
-				$('#uid').val(data);
-				localStorage.uid = data;
-				localStorage.uname = uname;
-				localStorage.email = email;
-				//$("#email").val('Subscribed!').prop('disabled', true); 
-
-			},
-			error: function (xhr, textStatus, errorThrown){
-			  alert(errorThrown);
-			}
-
-		});*/
-		
+	$('#myphoto').change(function(){	
 
 			var file = this.files[0];
 			var name = file.name;
@@ -532,7 +491,7 @@ jQuery(document).ready(function($){
 			var type = file.type;
 			// Validation
 			if( type == 'image/jpeg' || type == 'image/png' ){
-			//alert('jpg is ok');
+			//alert('jpg png ok');
 			doUp(file);
 			} else {
 			alert('Error: JPG, PNG images only please.');
@@ -544,8 +503,7 @@ jQuery(document).ready(function($){
 	});
 
 		function doUp(e){
-		/*e.preventDefault();
-		$(document).ajaxStart($.blockUI({ message: '<img src="/images/spinner.gif" width="100%" height="auto" /> <h3>LOADING...</h3>' })).ajaxStop($.unblockUI);*/
+
 		$( '.mypic' ).attr('src', 'img/loader.gif');
 		$( '.mypic' ).show('fast');
 		var formData = new FormData($('#uphoto')[0]);
@@ -559,36 +517,26 @@ jQuery(document).ready(function($){
 			xhr: function() {  // Custom XMLHttpRequest
 				var myXhr = $.ajaxSettings.xhr();
 				if(myXhr.upload){ // Check if upload property exists
-					//myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
 					
 				}
 				return myXhr;
-				//alert(myXhr);
+
 			},
 			success: function (data){ 
 		
 				var extension = data.substr( (data.lastIndexOf('.') +1 ) ).toLowerCase();
-				//alert('x'+$.trim(extension)+'x');
 
 				if ($.trim(extension) == 'jpg' || $.trim(extension) == 'jpeg' || $.trim(extension) == 'png') {
-
 					
 						localStorage.photo = data;
 						$( '#photoname').val(data);
 						$( '.mypic' ).attr('src', 'https://www.salimpourschoolonline.com/apppics/' + data);
-						$( '.mypic' ).show('fast');
-					
-						//alert('photo ' + extension);
-						//$( '.rotatephotoleft'+guestid ).show();
-						//$( '.rotatephotoright'+guestid ).show();
-						//$( '#postphoto' ).val(data);
-						//alert('Your image is ready.'); 					
+						$( '.mypic' ).show('fast');					
 
 				} else {
-					//alert('unknown ' + extension);
-						$( '#photoname').val('');
-						alert('Error: JPG, PNG only please.');
-						//$('#openposter').modal('hide');						
+
+					$( '#photoname').val('');
+					alert('Error: JPG, PNG images only please.');						
 				}
 
 
@@ -602,28 +550,25 @@ jQuery(document).ready(function($){
 	/* UPLOAD XPHOTO */
 	$('#myxphoto').change(function(){
 	
-		
 		var uid = $('#uid').val();
 		var file = this.files[0];
 		var name = file.name;
 		var size = file.size;
 		var type = file.type;
-			 // alert(type);
 			// Validation
-				if( type == 'image/jpeg' || type == 'image/png' ){
-				//alert('jpg is ok');
-				doxUp(file,uid);
-				} else {
-				alert('Error: JPG, PNG images only please.');
-				$(this).val('');
-				return false;
-				}
+			if( type == 'image/jpeg' || type == 'image/png' ){
+			//alert('jpg is ok');
+			doxUp(file,uid);
+			} else {
+			alert('Error: JPG, PNG images only please.');
+			$(this).val('');
+			return false;
+			}
 	
 	});
 
 		function doxUp(e,uid){
-		/*e.preventDefault();
-		$(document).ajaxStart($.blockUI({ message: '<img src="/images/spinner.gif" width="100%" height="auto" /> <h3>LOADING...</h3>' })).ajaxStop($.unblockUI);*/
+
 		$( '.mypic' ).attr('src', 'img/loader.gif');
 		$( '.mypic' ).show('fast');
 		var formData = new FormData($('#xphoto')[0]);
@@ -637,7 +582,6 @@ jQuery(document).ready(function($){
 			xhr: function() {  // Custom XMLHttpRequest
 				var myXhr = $.ajaxSettings.xhr();
 				if(myXhr.upload){ // Check if upload property exists
-					//myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
 					
 				}
 				return myXhr;
@@ -653,19 +597,12 @@ jQuery(document).ready(function($){
 						localStorage.photo = data;
 						$( '#photoname').val(data);
 						$( '.mypic' ).attr('src', 'https://www.salimpourschoolonline.com/apppics/' + data);
-						$( '.mypic' ).show('fast');
-					
-						//alert('photo ' + extension);
-						//$( '.rotatephotoleft'+guestid ).show();
-						//$( '.rotatephotoright'+guestid ).show();
-						//$( '#postphoto' ).val(data);
-						//alert('Your image is ready.'); 					
+						$( '.mypic' ).show('fast');					
 
 				} else {
 					//alert('unknown ' + extension);
 						$( '#photoname').val('');
-						alert('Error: JPG, PNG only please.');
-						//$('#openposter').modal('hide');						
+						alert('Error: JPG, PNG images only please.');					
 				}
 
 
@@ -717,87 +654,19 @@ jQuery(document).ready(function($){
 				})
 
 
-			},
+/*			},
 			error: function (xhr, textStatus, errorThrown){
-			  alert(errorThrown);
+			  alert(errorThrown);*/
 			}
 
 		});
 		
-	};	getvids();
+	};	
 	
-
+	getvids();
 	
-	// SAVE EMAIL FOR NEWSLETTER
-/*	$(document).delegate(".sendit", "click", function(e){ 
-	e.preventDefault();
-		
-		var email = $('#email').val();
-		
-		$.ajax({
-			url: "https://www.salimpourschoolonline.com/functions.cfc",
-			type: "post",
-			dataType: "json",
-			data: {method: "newslettersignup", email: (email)},
-			success: function (data){
-				//alert(data);
-
-				$("#signupsaved").html(data).show('fast');
-				// Store
-				localStorage.email = email;
-				$("#email").val('Subscribed!').prop('disabled', true);
-				$("#subscribe").hide();
-
-			},
-			error: function (xhr, textStatus, errorThrown){
-			  alert(errorThrown);
-			}
-
-		});
-		
-	});	*/
-	
-function S4() {
-    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
-}
- 
-// then to call it, plus stitch in '4' in the third group
-guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
-//alert(guid);
 	
 });
 </script>
 
-<!---	<script type="text/javascript" >
-		$(document).on('pageinit', '.box', function ()
-        {
-            handlepage();
-        });
-		function handlepage(id)
-		{
-			//$("a#masterlnk").show();
-			//$("div#title").text("Detail");
-			hide_all_content(show_content,id);
-		}
-		function handlepage()
-		{
-			//$("a#masterlnk").hide();
-			//$("div#title").text("Master");
-			hide_all_content(show_content,"splash");
-		}
-		function hide_all_content(callback, id)
-		{
-			$.when($('div.box').hide()).then(function () {
-				callback(id);
-			});
-		}
-		function show_content(id)
-		{
-			$("#"+id).show();
-		}
-		function hide_content(id)
-		{
-			$("#"+id).hide();
-		}
-	</script>--->
 </html>
