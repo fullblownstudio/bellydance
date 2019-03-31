@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src * 'self' 'unsafe-inline'; media-src * 'unsafe-inline'" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,
-width=device-width, height=device-height" />
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; frame-src 'self' https://player.vimeo.com/video/; img-src 'self' https://www.salimpourschoolonline.com/apppics/; font-src 'self' data: fonts.gstatic.com fonts.googleapis.com;" /> 
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="msapplication-tap-highlight" content="no" />
     <title>Salimpour School of Belly Dance</title>
@@ -22,22 +21,12 @@ width=device-width, height=device-height" />
 <div class="container-fluid" style="margin: 0px 5px; position: absolute; top: 0; z-index: 0;">
 	
 	<div class="row">
-	<!---	<div class="col-xs-12" id="homebut" style="display:none;">
-			<a class="nav" page="home"><button type="button" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-chevron-left"></span> &nbsp;HOME</button></a>
-		</div>	--->
 		<div class="col-xs-12">
 			<div style="margin: 0px auto; text-align: center;">
 				<img src="img/logow.png" style="width: 98%; height: auto; text-align: center; border: 0px solid silver;">
 			</div>
 		</div> 
 	</div>
-	
-
-	
-<!--        <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received" style="text-align: center; font-weight: bold;">Welcome to Salimpour School of Belly Dance!</p>
-        </div>-->
 	
 	<!--- SPLASH SCREEN --->
 	
@@ -233,17 +222,6 @@ width=device-width, height=device-height" />
 				
 				</form>
 				
-				
-<!--				<p style="color: white; font-size: 18px;">Send me the Salimpour School newsletter with belly dancing news and money saving coupons.</p>
-				
-				<div id="signupsaved" class="alert alert-success" style="display:none;"></div>
-				
-				<form name="sub" id="sub" method="post" action="javascript:void(0);">
-				<label for="email" style="color: white; font-size: 18px;"><span class="uname"></span>, enter your email address</label><br />
-				<input type="email" name="email" id="email" class="form-control input-lg" value="" style="text-align: center;">
-				<button type="submit" name="go" id="subscribe" value="1" class="btn btn-lg btn-warning sendit" style="margin:10px 0px;">Submit</button>
-				</form>-->
-				
 				<p>&nbsp;</p>
 				<p>&nbsp;</p>
 				<p>&nbsp;</p>
@@ -270,7 +248,11 @@ width=device-width, height=device-height" />
 		</div>
 	</div>
 
-		
+	<div class="footer" style="text-align:center;color:silver;">
+		&copy;2019 Suhaila International, LLC | All Rights Reserved
+	</div>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
 </div><!--- / container --->
 
 	<div class="foot">
@@ -286,9 +268,7 @@ width=device-width, height=device-height" />
 			</div>			
 		</div>
 	</div>		
-<!---	<div class="footer" style="text-align:center;">
-		&copy;<cfoutput>#Year(Now())#</cfoutput> Suhaila International, LLC  All Rights Reserved
-	</div>--->
+
 
 
 
@@ -307,23 +287,66 @@ width=device-width, height=device-height" />
 <script type="text/javascript">
 jQuery(document).ready(function($){	
 
-	
-/*	// check if uname in local db
-	var uname = localStorage.uname;
-	if(uname.length > 0){
-		$('#uname').val(uname);
-		$('.uname').text(uname);		
-	}
 
-	*/
+/*	localStorage.uid = 0;
+	localStorage.uname = '';
+	localStorage.email = '';
+	localStorage.photo = '';
+	localStorage.optin = '';*/
 	
 	// check local db for uid 
 	var uid = localStorage.uid;
+	
 	if(typeof uid != 'undefined'){
 		//alert('1. local ' + uid);
 		$('#uid').val(uid);
-		getacct(uid);
+		
+		if(parseInt(uid) > 0){
+			
+			if(localStorage.optin == 1){
+				$('#optin').prop('checked', true);
+				$('#subscribed').hide();
+			} else {
+				$('#optin').prop('checked', false);
+				$('#subscribed').show();
+			}
+
+			//alert('3. yes ' + uid);
+			$( '#noloader' ).show();
+			$( '#uploader' ).hide();
+			$( '#uid').val(localStorage.uid);
+			$( '#uname').val(localStorage.uname);
+			$( '.uname').html(localStorage.uname);
+			$( '#email').val(localStorage.email);
+			$( '.mypic' ).attr('src', 'https://www.salimpourschoolonline.com/apppics/' + localStorage.photo);
+			$( '.mypic' ).show('fast');	
+			$( '#photoname').val(localStorage.photo);
+			
+		} else {
+			
+			
+			//alert('4. no ' + uid);
+			
+			$( '#uploader' ).show();
+			$( '#noloader' ).hide();
+			$( '#uid').val('0');
+			$( '#uname').val('');
+			$( '.uname').html('');
+			$( '#email').val('');
+			$( '.mypic' ).attr('src', 'img/nophoto.jpg');
+			$( '.mypic' ).show('fast');	
+			$( '#photoname').val('');
+			
+		}
+
+		
+		//getacct(uid);
 	} else {
+		localStorage.uid = 0;
+		localStorage.uname = '';
+		localStorage.email = '';
+		localStorage.photo = '';
+		localStorage.optin = '';
 		$('#uid').val('0');
 	}
 	
