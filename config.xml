@@ -8,6 +8,7 @@
         Full Blown Studio
     </author>
     <content src="index.html" />
+	<icon src="icon.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion"  value="16" />
 	<preference name="android-targetSdkVersion"  value="26" />
