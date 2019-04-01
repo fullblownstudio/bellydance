@@ -16,7 +16,7 @@
 	<!--- comment cfclientsettings if device API's are not used 
 	<cfclientsettings detectdevice="true" enabledeviceapi="true"/>--->
 
-<body>
+<body id="body">
 <img src="img/bg.jpg" id="bg">	
 <div class="container-fluid" style="margin: 0px 5px; position: absolute; top: 0; z-index: 0;">
 	
@@ -280,7 +280,7 @@
 </body>
 	
 
-    <script type="text/javascript" src="cordova.js"></script>
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/vimeopause.min.js"></script>
@@ -443,10 +443,15 @@ jQuery(document).ready(function($){
 	$(document).on('click', '.mynav', function(e) {
 		e.preventDefault();
 		var page = $(this).attr('page');
-		//alert(page);
-		$('.box').hide();
 		
-		$( '#'+page ).fadeIn( "slow", function() {
+		//scroll to top of page
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		
+		//hide the content
+		$('.box').hide();
+
+		//fade in new content
+		$( '#'+page ).fadeIn( "fast", function() {
     		// Animation complete
   		});
 		
