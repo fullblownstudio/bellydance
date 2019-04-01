@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com; frame-src 'self' https://player.vimeo.com/video/; img-src 'self' https://www.salimpourschoolonline.com/apppics/; font-src 'self' data: fonts.gstatic.com fonts.googleapis.com;" /> 
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com https://www.salimpourschoolonline.com ; script-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com https://www.salimpourschoolonline.com; style-src 'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com https://www.salimpourschoolonline.com; frame-src 'self' https://player.vimeo.com/video/ https://www.salimpourschoolonline.com; img-src 'self' https://www.salimpourschoolonline.com/apppics/; font-src 'self' data: fonts.gstatic.com fonts.googleapis.com https://www.salimpourschoolonline.com;" /> 
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="msapplication-tap-highlight" content="no" />
@@ -107,7 +107,7 @@
 			<input type="hidden" name="uid" id="uid" value="0">
 			</form>		
 		
-		<div class="col-xs-12" style="text-align: center; font-family: 'Source Sans Pro', sans-serif; font-weight: 300; font-size: 50px; font-size: 6.5vw; margin: 20px auto; color: white;">
+		<div class="col-xs-12" style="text-align: center; font-family: 'Source Sans Pro', sans-serif; font-weight: 300; font-size: 46px; font-size: 6.5vw; margin: 20px auto; color: white;">
 					
 			MOTIVATE &bull; EDUCATE &bull; INSPIRE
 			
@@ -200,7 +200,12 @@
 			<div align="center">
 				<h3 style="color: white;"><span class="uname"></span>'s Account</h3>
 
-
+<!--
+            <button id='but_take'>Take photo</button>
+            <button id='but_select'>Select photo from Gallery</button>
+				-->
+				
+				
 				
 				<form name="xphoto" id="xphoto" method="post" action="javascript:void(0);">
 
@@ -248,8 +253,8 @@
 		</div>
 	</div>
 
-	<div class="footer" style="text-align:center;color:silver;">
-		&copy;2019 Suhaila International, LLC | All Rights Reserved
+	<div class="footer" style="text-align:center;color:silver; font-size: 12px; ">
+		&copy;2019 Suhaila International, LLC | All Rights Reserved <button type="button" class="btn btn-xs btn-default" id="clearlocal">x</button>
 	</div>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
@@ -275,7 +280,7 @@
 </body>
 	
 
-    <!--<script type="text/javascript" src="cordova.js"></script>-->
+    <script type="text/javascript" src="cordova.js"></script>
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/vimeopause.min.js"></script>
@@ -285,7 +290,92 @@
     </script>
 
 <script type="text/javascript">
+	
+	
+    // Wait for PhoneGap to load
+    //document.addEventListener("deviceready", onDeviceReady, false);
+
+    // PhoneGap is ready
+    //function onDeviceReady() {
+
+	
 jQuery(document).ready(function($){	
+	
+/*	
+            // take picture from camera
+            $('#but_take').click(function(){      
+                navigator.camera.getPicture(onSuccess, onFail, { quality: 20,
+                    destinationType: Camera.DestinationType.FILE_URL 
+                });
+            });
+
+            // upload select 
+            $("#but_select").click(function(){
+                navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY, 
+                    allowEdit: true,
+                    destinationType: Camera.DestinationType.FILE_URI
+                });
+            });
+
+            // Change image source and upload photo to server
+            function onSuccess(imageURI) {
+                // Set image source
+                var image = document.getElementById('photoname');
+                image.src = imageURI  + '?' + Math.random();
+
+                var options = new FileUploadOptions();
+                options.fileKey = "myxphoto";
+                options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+                options.mimeType = "image/jpeg";
+
+                var params = {};
+                params.value1 = "test";
+                params.value2 = "param";
+
+                options.params = params;
+                options.chunkedMode = false;
+
+                var ft = new FileTransfer();
+				var uid = localStorage.uid;
+                ft.upload(imageURI, 'https://www.salimpourschoolonline.com/apppics/uploadpx.cfm?uid='+uid, 
+				function(data){
+					
+				var extension = data.substr( (data.lastIndexOf('.') +1 ) ).toLowerCase();
+				//alert('x'+$.trim(extension)+'x');
+
+					if ($.trim(extension) == 'jpg' || $.trim(extension) == 'jpeg' || $.trim(extension) == 'png') {
+
+							localStorage.photo = data;
+							$( '#photoname').val(data);
+							$( '.mypic' ).attr('src', 'https://www.salimpourschoolonline.com/apppics/' + data);
+							$( '.mypic' ).show('fast');					
+
+					} else {
+						
+							$( '#photoname').val('');
+							alert('Error: JPG, PNG images only please.');					
+					}
+                    alert('successfully uploaded ' + result.response);
+                }, function(error){
+                    alert('error : ' + JSON.stringify(error));
+                }, options);
+            }
+            function onFail(message) {
+                alert('Failed because: ' + message);
+            }
+	
+	
+	
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
 	
 	// check local db for uid 
 	var uid = localStorage.uid;
@@ -342,6 +432,12 @@ jQuery(document).ready(function($){
 	}
 	
 	
+	
+	// CLEAR LOCAL STORAGE FOR DEVELOPMENT ONLY
+	$(document).on('click', '#clearlocal', function() {
+		localStorage.clear();
+		alert('Cleared');
+	});		
 	
 	// HANDLE CLICKS
 	$(document).on('click', '.mynav', function(e) {
@@ -666,7 +762,9 @@ jQuery(document).ready(function($){
 	getvids();
 	
 	
-});
+}); 
+	
+//}
 </script>
 
 </html>
