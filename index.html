@@ -291,6 +291,17 @@
 
 <script type="text/javascript">
 	
+function onBodyLoad() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
+function onDeviceReady() {
+// device is ready
+	alert('ready');
+	
+	
+
+
+	
 	
     // Wait for PhoneGap to load
     //document.addEventListener("deviceready", onDeviceReady, false);
@@ -769,7 +780,7 @@ jQuery(document).ready(function($){
 	
 }); 
 	
-//}
+}
 </script>
 
 </html>
