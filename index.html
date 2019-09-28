@@ -262,31 +262,33 @@
 			
 			<p>&nbsp;</p>
 			<p>&nbsp;</p>
-			<p>&nbsp;</p>
+			
 
 		</div>
 	</div>
 
 	<div class="footer" style="text-align:center;color:silver; font-size: 12px; ">
-		&copy;2019 Suhaila International, LLC | All Rights Reserved <button type="button" class="btn btn-xs btn-default" id="clearlocal">x</button>
+		&copy;2019 Suhaila International, LLC | All Rights Reserved 
+		<!--<button type="button" class="btn btn-xs btn-default" id="clearlocal">x</button>-->
 	</div>
+	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 </div><!--- / container --->
 
-	<div class="foot">
-		<div class="row">
-			<div class="col-xs-4" style="text-align: center;">
-				<button type="button" class="btn btn-md btn-block footerbut" page="home" style="background-color:#f1a94e; color:#444; margin: 2px;"><span class="glyphicon glyphicon-home" style="font-size: 30px;"></span></button>
-			</div>
-			<div class="col-xs-4" style="text-align: center;">
-				<button type="button" class="btn btn-md btn-block footerbut" page="account" style="background:#f1a94e; color:#444; margin: 2px;"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></button>
-			</div>
-			<div class="col-xs-4" style="text-align: center;">
-				<button type="button" class="btn btn-md btn-block footerbut" page="join" style="background:#f1a94e; color:#444; margin: 2px;"><span class="glyphicon glyphicon-star" style="font-size: 34px;"></span></button>
-			</div>			
+<div class="foot" style="display:none;">	
+	<div class="btn-group btn-group-justified" role="group" aria-label="...">
+		<div class="btn-group btn-group-lg footerbut" page="home" role="group">
+			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-home" style="font-size: 32px;"></span></button>
 		</div>
-	</div>		
+		<div class="btn-group btn-group-lg footerbut" page="account" role="group">
+			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-user" style="font-size: 32px;"></span></button>
+		</div>
+		<div class="btn-group btn-group-lg footerbut" page="join" role="group">
+			<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-star" style="font-size: 32px;"></span></button>
+		</div>
+	</div>
+</div>		
 
 
 
@@ -314,81 +316,6 @@
 
 	
 jQuery(document).ready(function($){	
-	
-/*	
-            // take picture from camera
-            $('#but_take').click(function(){      
-                navigator.camera.getPicture(onSuccess, onFail, { quality: 20,
-                    destinationType: Camera.DestinationType.FILE_URL 
-                });
-            });
-
-            // upload select 
-            $("#but_select").click(function(){
-                navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY, 
-                    allowEdit: true,
-                    destinationType: Camera.DestinationType.FILE_URI
-                });
-            });
-
-            // Change image source and upload photo to server
-            function onSuccess(imageURI) {
-                // Set image source
-                var image = document.getElementById('photoname');
-                image.src = imageURI  + '?' + Math.random();
-
-                var options = new FileUploadOptions();
-                options.fileKey = "myxphoto";
-                options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-                options.mimeType = "image/jpeg";
-
-                var params = {};
-                params.value1 = "test";
-                params.value2 = "param";
-
-                options.params = params;
-                options.chunkedMode = false;
-
-                var ft = new FileTransfer();
-				var uid = localStorage.uid;
-                ft.upload(imageURI, 'https://www.salimpourschoolonline.com/apppics/uploadpx.cfm?uid='+uid, 
-				function(data){
-					
-				var extension = data.substr( (data.lastIndexOf('.') +1 ) ).toLowerCase();
-				//alert('x'+$.trim(extension)+'x');
-
-					if ($.trim(extension) == 'jpg' || $.trim(extension) == 'jpeg' || $.trim(extension) == 'png') {
-
-							localStorage.photo = data;
-							$( '#photoname').val(data);
-							$( '.mypic' ).attr('src', 'https://www.salimpourschoolonline.com/apppics/' + data);
-							$( '.mypic' ).show('fast');					
-
-					} else {
-						
-							$( '#photoname').val('');
-							alert('Error: JPG, PNG images only please.');					
-					}
-                    alert('successfully uploaded ' + result.response);
-                }, function(error){
-                    alert('error : ' + JSON.stringify(error));
-                }, options);
-            }
-            function onFail(message) {
-                alert('Failed because: ' + message);
-            }
-	
-	
-	
-	
-	*/
-	
-	
-	
-	
-	
-	
 	
 	
 	// check local db for uid 
@@ -499,6 +426,7 @@ jQuery(document).ready(function($){
 				
 				$('#uid').val(data);
 				getacct();
+				$('.foot').fadeIn('fast');
 
 /*			},
 			error: function (xhr, textStatus, errorThrown){
